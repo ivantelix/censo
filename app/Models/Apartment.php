@@ -4,14 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Building extends Model
+class Apartment extends Model
 {
     use HasFactory;
 
-    protected $table = "buildings";
+    protected $table = "apartments";
 
     protected $guarded = [];
 
+    public function building()
+    {
+        return $this->belongsTo(Building::class);
+    }
 }

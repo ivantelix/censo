@@ -4,7 +4,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edificios</li>
+            <li class="breadcrumb-item active" aria-current="page">Apartamentos</li>
         </ol>
     </nav>
 @endsection
@@ -31,7 +31,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
             <div>
-            {{$messages}}
+                {{$messages}}
             </div>
         </div>
     @endisset
@@ -52,7 +52,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-11">
-                    <h3 class="card-title"><strong>Lista de Edificios</strong> </h3>
+                    <h3 class="card-title"><strong>Lista de Apartamentos</strong> </h3>
                 </div>
                 <div class="col-1">
                     <button id="new_building" type="button" class="btn btn-primary" onclick="showModal('Nuevo')">Nuevo</button>
@@ -64,8 +64,10 @@
                 <thead>
                     <tr>
                         <th class="sorting sorting_asc">ID</th>
-                        <th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Edificio</th>
-                        <th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Acciones</th>
+                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Edificio</th>
+                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Apartamento</th>
+                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Acciones</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -79,13 +81,13 @@
         <div class="modal-dialog" `role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalBuildingLabel">Nuevo Edificio</h5>
+                <h5 class="modal-title" id="modalBuildingLabel">Nuevo Apartamento</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <x-form_buildings/>
+                <x-form_apartments/>
             </div>
             </div>
         </div>
@@ -116,7 +118,7 @@
       "info": true,
       "autoWidth": true,
       "responsive": true,
-      ajax: '{{route('buildings')}}',
+      ajax: '{{route('apartments')}}',
       columns: [
             {data: 'id', name: 'id'},
             {data: 'name', name: 'name'},

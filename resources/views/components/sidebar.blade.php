@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/apartments" class="nav-link {{ request()->is('locations') ? 'active' : ''}}">
                 <i class="nav-icon fa fa-cubes"></i>
                     <p>Apartamentos</p>
                 </a>
