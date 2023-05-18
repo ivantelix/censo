@@ -21,9 +21,7 @@ class BuildingsController extends Controller
 
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    
-                })
+                ->addColumn('action', function($row){})
                 ->make(true);
         }
 

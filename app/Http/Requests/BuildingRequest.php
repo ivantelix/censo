@@ -24,7 +24,6 @@ class BuildingRequest extends FormRequest
      */
     public function rules(): array
     {
-
         $building = Building::find($this->id);
 
         if ($building) {

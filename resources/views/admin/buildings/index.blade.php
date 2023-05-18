@@ -55,7 +55,7 @@
                     <h3 class="card-title"><strong>Lista de Edificios</strong> </h3>
                 </div>
                 <div class="col-1">
-                    <button id="new_building" type="button" class="btn btn-primary" onclick="showModal('Nuevo')">Nuevo</button>
+                    <button id="new_building" type="button" class="btn btn-primary" onclick="showModalBuilding('Nuevo')">Nuevo</button>
                 </div>
             </div>
         </div>
@@ -123,7 +123,7 @@
             {
                 data: 'action', name: 'action', 
                 render: function(data, type, row, meta) {
-                    let checkbox = `<button class="btn btn-primary" onclick="showModal('Actualizar', ${row.id})">Editar</button>`;
+                    let checkbox = `<button class="btn btn-primary" onclick="showModalBuilding('Actualizar', ${row.id})">Editar</button>`;
                     return checkbox;
                 },
 

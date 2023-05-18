@@ -18,13 +18,11 @@ class ApartmentsController extends Controller
     {
          if ($request->ajax()) {
 
-            $data = Apartment::with('buildings')->select('*');
+            $data = Apartment::with('building')->select('*');
 
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    
-                })
+                ->addColumn('action', function($row){})
                 ->make(true);
         }
 
@@ -35,10 +33,10 @@ class ApartmentsController extends Controller
 
     public function search(Request $request, $id)
     {
-        $Apartment = Apartment::find($id);
+        $apartment = Apartment::with(['building'])->find($id);
 
         if ($request->ajax()) {
-            return new ApartmentResource($Apartment);
+            return new ApartmentResource($apartment);
         }
 
         return true;
@@ -50,7 +48,7 @@ class ApartmentsController extends Controller
         $data = $request->validated();
         $Apartment = Apartment::create($data);
 
-        return redirect('Apartments')->with('messages', 'Edificio registrado con exito!');
+        return redirect('apartments')->with('messages', 'Apartamento registrado con exito!');
     }
 
     public function update(ApartmentRequest $request, Apartment $Apartment)
@@ -58,6 +56,12 @@ class ApartmentsController extends Controller
         $data = $request->validated();
         $Apartment->update($data);
 
-        return redirect('Apartments')->with('messages', 'Edificio Actualizado con exito!');
+        return redirect('apartments')->with('messages', 'Apartamento Actualizado con exito!');
+    }
+
+    public function delete(Apartment $Apartment)
+    {
+        $Apartment->delete();
+        return redirect('apartments')->with('messages', 'Apartamento eliminado con exito!');
     }
 }

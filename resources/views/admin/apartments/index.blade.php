@@ -55,12 +55,12 @@
                     <h3 class="card-title"><strong>Lista de Apartamentos</strong> </h3>
                 </div>
                 <div class="col-1">
-                    <button id="new_building" type="button" class="btn btn-primary" onclick="showModal('Nuevo')">Nuevo</button>
+                    <button id="new_building" type="button" class="btn btn-primary" onclick="showModalApartment('Nuevo')">Nuevo</button>
                 </div>
             </div>
         </div>
         <div class="card-body">
-            <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
+            <table id="table_apartment" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="table_apartment_info">
                 <thead>
                     <tr>
                         <th class="sorting sorting_asc">ID</th>
@@ -77,18 +77,39 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="modalBuilding" tabindex="-1" role="dialog" aria-labelledby="modalBuildingLabel" aria-hidden="true">
+    <div class="modal fade" id="modalApartment" tabindex="-1" role="dialog" aria-labelledby="modalApartmentLabel" aria-hidden="true">
         <div class="modal-dialog" `role="document">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalBuildingLabel">Nuevo Apartamento</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalApartmentLabel">Nuevo Apartamento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <x-form_apartments :buildings=$buildings/>
+                </div>
             </div>
-            <div class="modal-body">
-                <x-form_apartments/>
-            </div>
+        </div>
+    </div>
+
+    <!--Modal Delete-->
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" `role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="color:white; background-color: red;">
+                    <h5 class="modal-title" id="modalDeleteLabel">Confirmar Eliminar Registro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col offset-4">
+                            <button class="btn btn-sm btn-danger" id="btnDelete">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -110,7 +131,7 @@
 
 <script>
   $(function () {
-    $('#example2').DataTable({
+    $('#table_apartment').DataTable({
       "paging": true,
       "lengthChange": true,
       "searching": true,
@@ -121,12 +142,21 @@
       ajax: '{{route('apartments')}}',
       columns: [
             {data: 'id', name: 'id'},
+            {
+                data: 'building', 
+                name: 'building',
+                render: function(data, type, row, meta) {
+                    return row.building.name;
+                },
+
+            },
             {data: 'name', name: 'name'},
             {
                 data: 'action', name: 'action', 
                 render: function(data, type, row, meta) {
-                    let checkbox = `<button class="btn btn-primary" onclick="showModal('Actualizar', ${row.id})">Editar</button>`;
-                    return checkbox;
+                    let btn = `<div class="btn-group"><button class="btn btn-primary" onclick="showModalApartment('Actualizar', ${row.id})">Editar</button>`;
+                    btn = btn+`<button class="btn btn-danger" onclick="confirmDelete(${row.id})">Eliminar</button></div>`;
+                    return btn;
                 },
 
             },
@@ -135,12 +165,10 @@
   });
   
   $(document).ready(function(){
-    $('#example2_length').parent().removeClass('col-md-6');
-    $('#example2_filter').parent().removeClass('col-md-6');
-    $('#example2_length').parent().addClass('col-md-10');
-    $('#example2_filter').parent().addClass('col-md-2');
-
-    
+    $('#table_apartment_length').parent().removeClass('col-md-6');
+    $('#table_apartment_filter').parent().removeClass('col-md-6');
+    $('#table_apartment_length').parent().addClass('col-md-10');
+    $('#table_apartment_filter').parent().addClass('col-md-2');
   });
   
 </script>
