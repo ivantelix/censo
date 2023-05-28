@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\BuildingsController;
 use App\Http\Controllers\Admin\ApartmentsController;
-
+use App\Http\Controllers\Admin\CensosController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -23,8 +23,12 @@ Route::middleware(['auth'])->group(function () {
 
     //Ruta de apartamentos
     Route::get('/apartments', [ApartmentsController::class, 'index'])->name('apartments');
-    Route::get('/apartment/search/{id}', [ApartmentsController::class, 'search'])->name('search_apartments');
+    Route::get('/apartment/search/{id?}', [ApartmentsController::class, 'search'])->name('search_apartments');
     Route::post('/apartment', [ApartmentsController::class, 'store'])->name('create_apartment');
     Route::post('/apartment/{apartment}', [ApartmentsController::class, 'update'])->name('update_apartment');
     Route::get('/apartment/delete/{apartment}', [ApartmentsController::class, 'delete'])->name('delete_apartment');
+
+    //Rutas de censo
+    Route::get('/censos', [CensosController::class, 'show'])->name('censos');
+    Route::post('/censo', [CensosController::class, 'store'])->name('store');
 });

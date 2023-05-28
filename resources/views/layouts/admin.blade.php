@@ -14,6 +14,8 @@
   <!-- adminlte-->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 
+  @yield('headerscripts')
+
   @yield('css')
 
 </head>

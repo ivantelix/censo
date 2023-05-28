@@ -7,16 +7,16 @@ function showModalBuilding(string, id) {
             url: `/building/search/${id}`,
         })
         .done(function( data ) {
-            $('#name').val(data.data.name)
-            $('#building_form').attr('action', `/building/${data.data.id}`)
+            $('#name').val(data.data.name);
+            $('#building_form').attr('action', `/building/${data.data.id}`);
         });
     }
     else {
-        $('#building_form').attr('action', `/building`)
-        $('#name').val("")
+        $('#building_form').attr('action', `/building`);
+        $('#name').val("");
     }
 
-    $('#modalBuilding').modal('show')
+    $('#modalBuilding').modal('show');
 }
 
 
@@ -25,7 +25,6 @@ function showModalApartment(string, id) {
 
     $("#building_select option").each(function(){
         $(this).attr("selected",false);
-        console.log();
     })
 
     if (string == 'Actualizar') {
@@ -41,12 +40,12 @@ function showModalApartment(string, id) {
         });
     }
     else {
-        $('#apartment_form').attr('action', `/apartment`)
-        $('#name').val("")
+        $('#apartment_form').attr('action', `/apartment`);
+        $('#name').val("");
         $('#id_apartment').val("");
     }
 
-    $('#modalApartment').modal('show')
+    $('#modalApartment').modal('show');
 }
 
 function confirmDelete(id) {
@@ -65,3 +64,41 @@ function deleted(id) {
         alert("registro eliminado con exito!");
     });
 }
+
+function showModalCensoLeader(string, id) {
+     $('#modalCensoLabel').text(`${string} Censo de Lider`);
+
+    if (string == 'Actualizar') {
+        $.ajax({
+            method: "GET",
+            url: `/censos/leader/search/${id}`,//TODO: Hacermetodo y url para buscar al lider de familia
+        })
+        .done(function( data ) {
+            console.log(data.data);
+        });
+    }
+    else {
+        $('#censo_form').attr('action', `/censo`);
+        //TODO: Resetear valores de formulario
+    }
+
+    $('#modalCensoLeader').modal('show')
+}
+
+$('#building').on('change', (event) => {
+    let id_building = $('#building').val();
+
+    $.ajax({
+        method: "GET",
+        url: `/apartment/search?building_id=${id_building}`,
+    })
+    .done(function( data ) {
+
+        $('#apartment').empty();
+
+        $('#apartment').append(`<option value='' >Selecciona apartamento...</option>`);
+        data.data.forEach(element => {
+            $('#apartment').append(`<option value='${element.id}' >${element.name}</option>`);
+        });
+    });
+})

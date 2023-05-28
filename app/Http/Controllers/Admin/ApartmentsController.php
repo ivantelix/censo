@@ -31,15 +31,16 @@ class ApartmentsController extends Controller
         return view('admin.apartments.index')->with(['buildings' => $buildings]);
     }
 
-    public function search(Request $request, $id)
+    public function search(Request $request, $id=null)
     {
-        $apartment = Apartment::with(['building'])->find($id);
-
-        if ($request->ajax()) {
-            return new ApartmentResource($apartment);
+        if ( $request->has('building_id') ) {
+            $data = Apartment::where('building_id', $request->building_id)->get();
+            return ApartmentResource::collection($data);
         }
-
-        return true;
+        else {
+            $data = Apartment::with(['building'])->find($id);
+            return new ApartmentResource($data);
+        }
     }
 
     public function store(ApartmentRequest $request)
