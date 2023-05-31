@@ -16,7 +16,9 @@
                     <select class="form-control" id="building" name="building_id">
                         <option value="">Selecciona edificio...</option>/
                         @foreach($buildings as $building)
-                            <option value="{{$building->id}}">{{$building->name}}</option>
+                            <option value="{{ $building->id }}" @selected(old('building_id') == $building->id)>
+                                {{$building->name}}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -36,36 +38,36 @@
         <div class="row">
             <div class="col">
             <label for="exampleInputEmail1">Nombres</label>
-            <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" placeholder="Ingresa los nombres">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Ingresa los nombres" value="{{old('name')}}">
             </div>
 
             <div class="col">
                 <label for="exampleInputEmail1">Apellidos</label>
-                <input type="text" class="form-control" id="lastname" name="lastname" aria-describedby="emailHelp" placeholder="Ingresa los apellidos">
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Ingresa los apellidos" value="{{old('lastname')}}">
             </div>
         </div>
 
         <div class="row">
             <div class="col">
                 <label for="exampleInputEmail1">Cedula</label>
-                <input type="text" class="form-control" id="dni" name="dni" placeholder="Ingresa la cedula">
+                <input type="text" class="form-control" id="dni" name="dni" placeholder="Ingresa la cedula" value="{{old('dni')}}">
             </div>
 
             <div class="col">
                 <label for="exampleInputEmail1">Telefono</label>
-                <input type="text" class="form-control" id="phone" name="phone" placeholder="Ingresa Nro Telefono">
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="Ingresa Nro Telefono" value="{{old('phone')}}">
             </div>
 
             <div class="col">
                 <label for="exampleInputEmail1">Fecha de Nacimiento</label>
-                <input type="text" class="form-control" id="birthday" name="birthdate" placeholder="Ingresa Fecha de Nacimiento">
+                <input type="text" class="form-control" id="birthday" name="birthdate" placeholder="Ingresa Fecha de Nacimiento" value="{{old('birthdate')}}">
             </div>
         </div>
 
         <div class="row">
             <div class="col">
                 <label for="exampleInputEmail1">Correo Electronico</label>
-                <input type="text" class="form-control" id="email" name="email" placeholder="Ingresa Correo Electronico">
+                <input type="text" class="form-control" id="email" name="email" placeholder="Ingresa Correo Electronico" value="{{old('email')}}">
             </div>
 
             <div class="col">

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('lastname')->nullable();
             $table->string('dni')->unique();
             $table->string('phone')->nullable();
-            $table->date('birthdate')->
+            $table->date('birthdate');
             $table->string('email')->unique();
             $table->string('relationship');
             $table->boolean('reside_community');

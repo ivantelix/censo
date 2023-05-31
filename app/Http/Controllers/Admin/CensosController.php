@@ -15,21 +15,21 @@ class CensosController extends Controller
     public function show()
     {
         $buildings = Building::all();
-        $person = Person::first(); //Eliminar esto luego de finalizar
-        return view('admin.censos.show')->with(['leader' => $person, 'buildings' => $buildings]);
+        return view('admin.censos.show')->with(['buildings' => $buildings]);
     }
 
     public function store(StoreCensoRequest $request)
     {
         $data = $request->validated();
         $person = Person::create($data);
+        $buildings = Building::all();
 
-        if (!$request->leader_family_id) {
-            $buildings = Building::all();
-            return view('admin.censos.show')->with(['leader' => $person, 'buildings' => $buildings]);
+        if (isset($request->leader_family_id)) {
+            $leader = Person::find($request->leader_family_id);
+            return view('admin.censos.show')->with(['leader' => $leader, 'buildings' => $buildings]);
         }
 
-        return redirect('censos')->with('messages', 'Lider registrado con exito!');
+        return view('admin.censos.show')->with(['leader' => $person, 'buildings' => $buildings]);
     }
 
     public function getFamilyLeader(Request $request, $leader_id=null)

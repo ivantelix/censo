@@ -13,6 +13,10 @@ class Person extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'birthdate' => 'datetime:d-m-Y',
+    ];
+
     public function apartment()
     {
         return $this->belongsTo(Apartment::class);
