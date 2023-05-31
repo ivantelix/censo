@@ -3,7 +3,11 @@
         @csrf
 
         <input type="hidden" id="id">
-        <input type="hidden" id="leader_id">
+        
+        @if(isset($leader))
+            <input type="hidden" id="leader_family_id" name="leader_family_id" value="{{$leader->id}}">
+        @endif
+
 
         <div class="row">
             <div class="col">
@@ -84,11 +88,11 @@
                     <label for="exampleInputEmail1">Reside en el consejo comunal</label>
                     
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="reside_community" id="inlineRadio1" value="yes">
+                        <input class="form-check-input" type="radio" name="reside_community" id="inlineRadio1" value="1">
                         <label class="form-check-label" for="inlineRadio1">Si</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="reside_community" id="inlineRadio2" value="no">
+                        <input class="form-check-input" type="radio" name="reside_community" id="inlineRadio2" value="0">
                         <label class="form-check-label" for="inlineRadio2">No</label>
                     </div>
                 </div>
@@ -110,6 +114,11 @@
             <div class="row">
                 <div class="col offset-10">
                     <button type="btn" class="btn btn-primary">Enviar</button>
+                    <!--@if(isset($leader))
+                        <button type="button" id="btn_add_family" class="btn btn-primary">Enviar</button>
+                    @else
+                        <button type="btn" class="btn btn-primary">Enviar</button>
+                    @endif-->
                 </div>
             </div>
         </div>

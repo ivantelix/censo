@@ -31,4 +31,5 @@ Route::middleware(['auth'])->group(function () {
     //Rutas de censo
     Route::get('/censos', [CensosController::class, 'show'])->name('censos');
     Route::post('/censo', [CensosController::class, 'store'])->name('store');
+    Route::get('/censos/getFamily/{leader_id?}', [CensosController::class, 'getFamilyLeader'])->name('getFamilyLeader');
 });

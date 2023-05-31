@@ -48,14 +48,23 @@ class StoreCensoRequest extends FormRequest
             'birthdate' => [
                 'required',
                 'string',
-                'date_format:d/m/Y'
+                'date_format:Y-m-d'
+            ],
+            'email' => [
+                'required',
+                'unique:persons',
+                'email'
+            ],
+            'relationship' => [
+                'required',
+                'string'
             ],
             'reside_community' => [
                 'required'
-            ]
+            ],
         ];
         
-        if (isset($this->leader_id)) {
+        if (isset($this->leader_family_id)) {
             $rules['leader_family_id'] = [
                 'required',
                 'integer'
