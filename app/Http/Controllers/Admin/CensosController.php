@@ -15,7 +15,7 @@ class CensosController extends Controller
     public function show()
     {
         $buildings = Building::all();
-        return view('admin.censos.show')->with(['buildings' => $buildings]);
+        return view('admin.censos.censoView')->with(['buildings' => $buildings]);
     }
 
     public function store(StoreCensoRequest $request)
@@ -26,10 +26,10 @@ class CensosController extends Controller
 
         if (isset($request->leader_family_id)) {
             $leader = Person::find($request->leader_family_id);
-            return view('admin.censos.show')->with(['leader' => $leader, 'buildings' => $buildings]);
+            return view('admin.censos.censoView')->with(['leader' => $leader, 'buildings' => $buildings]);
         }
 
-        return view('admin.censos.show')->with(['leader' => $person, 'buildings' => $buildings]);
+        return view('admin.censos.censoView')->with(['leader' => $person, 'buildings' => $buildings]);
     }
 
     public function getFamilyLeader(Request $request, $leader_id=null)
@@ -45,5 +45,12 @@ class CensosController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($row){})
             ->make(true);
+    }
+
+    public function search(Request $request)
+    {
+        $person = Person::find($request->dni);
+        
+        dd($request->dni);
     }
 }

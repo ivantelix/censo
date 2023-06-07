@@ -123,16 +123,16 @@ function showModalCensoFamily(string) {
     $('#modalCensoLeader').modal('show')
 }
 
-$('#btn_add_family').on('click', function() {
+$( "#inputSearch" ).on( "keyup", function() {
+    let search = $('#inputSearch').val();
     
-    $('#table_family').DataTable().ajax.reload();
-    return false;
-    $.ajax({
-        method: "POST",
-        url: `/censo`,
-        data: $('#censo_form').serialize()
-    })
-    .done(function( data ) {
-        console.log(data);
-    });
+    if ( search.length >= 3 ) {
+        $.ajax({
+            method: "GET",
+            url: `/censos/search/${id}`,//TODO: Hacermetodo y url para buscar al lider de familia
+        })
+        .done(function( data ) {
+            console.log(data.data);
+        });
+    }
 });
