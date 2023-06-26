@@ -11,21 +11,27 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/censos" class="nav-link {{ request()->is('censo') ? 'active' : ''}}">
+                <a href="/censos" class="nav-link {{ request()->is('censos') ? 'active' : ''}}">
                 <i class="nav-icon fa fa-users"></i>
                     <p>Nuevo Censo</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/buildings" class="nav-link {{ request()->is('locations') ? 'active' : ''}}">
+                <a href="/buildings" class="nav-link {{ request()->is('buildings') ? 'active' : ''}}">
                 <i class="nav-icon fa fa-building"></i>
                     <p>Edificios</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/apartments" class="nav-link {{ request()->is('locations') ? 'active' : ''}}">
+                <a href="/apartments" class="nav-link {{ request()->is('apartments') ? 'active' : ''}}">
                 <i class="nav-icon fa fa-cubes"></i>
                     <p>Apartamentos</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/users" class="nav-link {{ request()->is('users') ? 'active' : ''}}">
+                <i class="nav-icon fa fa-cubes"></i>
+                    <p>Usuarios</p>
                 </a>
             </li>
             <li class="nav-item">

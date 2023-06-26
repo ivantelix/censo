@@ -4,7 +4,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Apartamentos</li>
+            <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
         </ol>
     </nav>
 @endsection
@@ -52,22 +52,21 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-11">
-                    <h3 class="card-title"><strong>Lista de Apartamentos</strong> </h3>
+                    <h3 class="card-title"><strong>Lista de Usuarios</strong> </h3>
                 </div>
                 <div class="col-1">
-                    <button id="new_building" type="button" class="btn btn-primary" onclick="showModalApartment('Nuevo')">Nuevo</button>
+                    <button id="new_users" type="button" class="btn btn-primary" onclick="showModalUser('Nuevo')">Nuevo</button>
                 </div>
             </div>
         </div>
         <div class="card-body">
-            <table id="table_apartment" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="table_apartment_info">
+            <table id="table_user" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="table_user_info">
                 <thead>
                     <tr>
                         <th class="sorting sorting_asc">ID</th>
-                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Edificio</th>
-                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Apartamento</th>
+                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Nombre</th>
+                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Email</th>
                         <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Acciones</th>
-                        
                     </tr>
                 </thead>
                 <tbody>
@@ -77,17 +76,17 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="modalApartment" tabindex="-1" role="dialog" aria-labelledby="modalApartmentLabel" aria-hidden="true">
+    <div class="modal fade" id="modalUser" tabindex="-1" role="dialog" aria-labelledby="modalApartmentLabel" aria-hidden="true">
         <div class="modal-dialog" `role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalApartmentLabel">Nuevo Apartamento</h5>
+                    <h5 class="modal-title" id="modalUserLabel">Nuevo Usuario</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <x-form_apartments :buildings=$buildings/>
+                    <x-form_users :roles=$roles/>
                 </div>
             </div>
         </div>
@@ -118,7 +117,7 @@
 @section('js')
 <script>
   $(function () {
-    $('#table_apartment').DataTable({
+    $('#table_user').DataTable({
       "paging": true,
       "lengthChange": true,
       "searching": true,
@@ -126,23 +125,16 @@
       "info": true,
       "autoWidth": true,
       "responsive": true,
-      ajax: '{{route('apartments')}}',
+      ajax: '{{route('users')}}',
       columns: [
             {data: 'id', name: 'id'},
-            {
-                data: 'building', 
-                name: 'building',
-                render: function(data, type, row, meta) {
-                    return row.building.name;
-                },
-
-            },
             {data: 'name', name: 'name'},
+            {data: 'email', name: 'email'},
             {
                 data: 'action', name: 'action', 
                 render: function(data, type, row, meta) {
-                    let btn = `<div class="btn-group"><button class="btn btn-primary" onclick="showModalApartment('Actualizar', ${row.id})">Editar</button>`;
-                    btn = btn+`<button class="btn btn-danger" onclick="confirmDelete(${row.id}, 'apartment')">Eliminar</button></div>`;
+                    let btn = `<div class="btn-group"><button class="btn btn-primary" onclick="showModalUser('Actualizar', ${row.id})">Editar</button>`;
+                    btn = btn+`<button class="btn btn-danger" onclick="confirmDelete(${row.id}, 'user')">Eliminar</button></div>`;
                     return btn;
                 },
 
@@ -152,10 +144,10 @@
   });
   
   $(document).ready(function(){
-    $('#table_apartment_length').parent().removeClass('col-md-6');
-    $('#table_apartment_filter').parent().removeClass('col-md-6');
-    $('#table_apartment_length').parent().addClass('col-md-10');
-    $('#table_apartment_filter').parent().addClass('col-md-2');
+    $('#table_user_length').parent().removeClass('col-md-6');
+    $('#table_user_filter').parent().removeClass('col-md-6');
+    $('#table_user_length').parent().addClass('col-md-10');
+    $('#table_user_filter').parent().addClass('col-md-2');
   });
   
 </script>

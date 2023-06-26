@@ -48,19 +48,19 @@ function showModalApartment(string, id) {
     $('#modalApartment').modal('show');
 }
 
-function confirmDelete(id) {
+function confirmDelete(id, module) {
     $('#modalDelete').modal('show');
-    $('#btnDelete').attr('onclick', `deleted(${id})`);
+    $('#btnDelete').attr('onclick', `deleted(${id}, '${module}')`);
 }
 
-function deleted(id) {
+function deleted(id, module) {
     $.ajax({
         method: "GET",
-        url: `/apartment/delete/${id}`,
+        url: `/${module}/delete/${id}`,
     })
     .done(function( data ) {
         $('#modalDelete').modal('hide');
-        $('#table_apartment').DataTable().ajax.reload();
+        $(`#table_${module}`).DataTable().ajax.reload();
         alertify.set('notifier','position', 'top-center');
         alertify.warning('registro eliminado con exito!');
     });
@@ -155,3 +155,30 @@ $('#btnSearch').on('click', () => {
         
     });
 })
+
+function showModalUser(string, id) {
+    $('#modalUserLabel').text(`${string} Usuario`)
+
+    $("#role_id option").each(function(){
+        $(this).attr("selected",false);
+    })
+
+    if (string == 'Actualizar') {
+        $.ajax({
+            method: "GET",
+            url: `/user/search/${id}`,
+        })
+        .done(function( data ) {
+            $('#user_id').val(data.user.id);
+            $('#name').val(data.user.name);
+            $('#email').val(data.user.email);
+            $('#user_form').attr('action', `/user/${data.user.id}`);
+            $("#role_id option[value="+ data.user.role_id +"]").attr("selected",true);
+        });
+    }
+    else {
+        $('#user_form').attr('action', `/user`);
+    }
+
+    $('#modalUser').modal('show');
+}

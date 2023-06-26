@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BuildingsController;
 use App\Http\Controllers\Admin\ApartmentsController;
 use App\Http\Controllers\Admin\CensosController;
+use App\Http\Controllers\Admin\UsersController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -34,4 +35,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/censos/getFamily/{leader_id?}', [CensosController::class, 'getFamilyLeader'])->name('getFamilyLeader');
     Route::get('/search', [CensosController::class, 'search'])->name('search');
     Route::get('/generate/{dni}', [CensosController::class, 'generate'])->name('generate');
+
+    //Rutas de usuarios
+    Route::get('/users', [UsersController::class, 'index'])->name('users');
+    Route::post('/user', [UsersController::class, 'store'])->name('user');
+    Route::get('/user/search/{id}', [UsersController::class, 'search'])->name('search_user');
+    Route::post('/user/{user}', [UsersController::class, 'update'])->name('update_user');
+    Route::get('/user/delete/{user}', [UsersController::class, 'delete'])->name('delete_user');
 });
