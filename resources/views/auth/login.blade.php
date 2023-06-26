@@ -7,6 +7,30 @@
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css?v=3.2.0">
+    <script type="text/javascript">
+
+        let captcha = false;
+        
+        var verifyCallback = function(response) {
+            captcha = response;
+            console.log(captcha);
+        };
+
+        var onloadCallback = function() {
+            grecaptcha.render('example3', {
+            'sitekey' : '6Ld-qKoUAAAAAF3qEUN7O_xPqRk5IZqY1KKWfAX0',
+            'callback' : verifyCallback,
+            'theme' : 'dark'
+            });
+        };
+
+        function login() {
+            if (captcha) {
+                $('#form_login').submit();
+            }
+        }
+      
+    </script>
 
 </head>
 <body class="login-page" style="min-height: 496.781px;">
@@ -18,7 +42,7 @@
     <div class="card">
         <div class="card-body login-card-body">
             <p class="login-box-msg">Iniciar Sesion</p>
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('login') }}" id="form_login">
                 @csrf
 
                 <div class="input-group mb-3">
@@ -47,9 +71,14 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="example3"></div>
+
+                </br>
+
                 <div class="row">
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        <button type="button" class="btn btn-primary btn-block" onclick="login()">Sign In</button>
                     </div>
 
                 </div>
@@ -69,6 +98,10 @@
 <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <script src="../../dist/js/adminlte.min.js?v=3.2.0"></script>
+
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+        async defer>
+    </script>
 
 
 </body>

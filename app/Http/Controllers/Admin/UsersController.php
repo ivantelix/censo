@@ -8,6 +8,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -37,7 +38,9 @@ class UsersController extends Controller
     {
 
         $data = $request->validated();
-        $user = User::create($data);
+
+        $data['password'] = Hash::make($data['password']);
+        User::create($data);
 
         return redirect('users')->with('messages', 'Usuario registrado con exito!');
     }
@@ -45,6 +48,11 @@ class UsersController extends Controller
     public function update(UserRequest $request, User $user)
     {
         $data = $request->validated();
+
+        if ($request->has('password')) {
+            $data['password'] = Hash::make($data['password']);
+        }
+
         $user->update($data);
 
         return redirect('users')->with('messages', 'Usuario actualizado con exito!');
