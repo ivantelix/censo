@@ -17,4 +17,9 @@ class Apartment extends Model
     {
         return $this->belongsTo(Building::class);
     }
+
+    public function persons()
+    {
+        return $this->hasMany(Person::class);
+    }
 }

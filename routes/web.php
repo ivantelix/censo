@@ -33,4 +33,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/censo', [CensosController::class, 'store'])->name('store');
     Route::get('/censos/getFamily/{leader_id?}', [CensosController::class, 'getFamilyLeader'])->name('getFamilyLeader');
     Route::get('/search', [CensosController::class, 'search'])->name('search');
+    Route::get('/generate/{dni}', [CensosController::class, 'generate'])->name('generate');
 });

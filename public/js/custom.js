@@ -61,7 +61,8 @@ function deleted(id) {
     .done(function( data ) {
         $('#modalDelete').modal('hide');
         $('#table_apartment').DataTable().ajax.reload();
-        alert("registro eliminado con exito!");
+        alertify.set('notifier','position', 'top-center');
+        alertify.warning('registro eliminado con exito!');
     });
 }
 
@@ -123,16 +124,34 @@ function showModalCensoFamily(string) {
     $('#modalCensoLeader').modal('show')
 }
 
-$( "#inputSearch" ).on( "keyup", function() {
-    let search = $('#inputSearch').val();
-    
-    if ( search.length >= 3 ) {
-        $.ajax({
-            method: "GET",
-            url: `/censos/search/${id}`,//TODO: Hacermetodo y url para buscar al lider de familia
-        })
-        .done(function( data ) {
-            console.log(data.data);
-        });
+$('#btnSearch').on('click', () => {
+
+    let dni = $('#dni').val();
+
+    if (dni == "") {
+        alertify.set('notifier','position', 'top-center');
+        alertify.warning('No ha escrito ninguna cedula');
+        return false;
     }
-});
+
+    $.ajax({
+        method: "GET",
+        url: `/search?dni=${dni}&check=true`
+    })
+    .done(function( data ) {
+        
+        if(data.person) {
+            $('#showDetail').attr('href', `/search?type=detail&dni=${dni}`);
+            $('#completeCenso').attr('href', `/search?type=censo&dni=${dni}`);
+
+            $('#modalTypeSearch').modal('show');
+        }
+        else {
+            alertify.set('notifier','position', 'top-center');
+            alertify.warning('No se encontro registro, intenta con otra cedula.!');
+            return false;
+        }
+        
+        
+    });
+})

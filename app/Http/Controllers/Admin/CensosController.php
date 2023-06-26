@@ -9,6 +9,7 @@ use Yajra\DataTables\DataTables;
 
 use App\Models\Person;
 use App\Http\Requests\StoreCensoRequest;
+use App\Enums\MonthEnums;
 
 class CensosController extends Controller
 {
@@ -49,8 +50,33 @@ class CensosController extends Controller
 
     public function search(Request $request)
     {
-        $person = Person::find($request->dni);
-        
-        dd($request->dni);
+        $person = Person::with('apartment')->where('dni', $request->dni)->first();
+
+        if ($request->check) {
+            return response()->json(['person' => $person]);
+        }
+
+        if ($request->type == 'detail') {
+            return view('admin.censos.detail')->with(['person' => $person]);
+        }
+
+        $buildings = Building::all();
+        return view('admin.censos.censoView')->with(['leader' => $person, 'buildings' => $buildings]);
+    }
+
+    public function generate($dni)
+    {
+        $person = Person::with('apartment')->where('dni', $dni)->first();
+
+        $data = [
+            'person' => $person,
+            'day' => date('d'),
+            'month' => MonthEnums::tryFrom(date('m')),
+            'year' => date('Y')
+        ];
+
+        $pdf = \PDF::loadView('admin.pdf.constancy', $data);
+        $pdf->setPaper('a4');
+        return $pdf->download('ejemplo.pdf');
     }
 }

@@ -14,6 +14,9 @@
   <!-- adminlte-->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 
+  <!-- -->
+  <link rel="stylesheet" href="/css/alertify.min.css">
+
   @yield('headerscripts')
 
   @yield('css')
@@ -169,25 +172,48 @@
       </div>
 
       <!-- SidebarSearch Form -->
-      <form action="/search" method="GET">
+      <form>
         @csrf
 
         <div class="form-inline">
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Buscar por Cedula" name="dni" id="dni">
             <div class="input-group-append">
-              <button class="btn btn-sidebar" type="submit" id="btnSearch">
+              <button class="btn btn-sidebar" type="button" id="btnSearch">
                 <i class="fas fa-search fa-fw"></i>
               </button>
             </div>
           </div>
         </div>
-
       </form>
 
       <x-sidebar/>
     <!-- /.sidebar -->
   </aside>
+
+  <!--Modal Type Search-->
+  <!-- Modal -->
+  <div class="modal fade" id="modalTypeSearch" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Que desea hacer?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-8 offset-md-3">
+              <a name="" id="showDetail" class="btn btn-primary" role="button">Ver detalle</a>
+              <a name="" id="completeCenso" class="btn btn-primary" role="button">Completar Censo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--End Modal Type Search-->
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -236,6 +262,8 @@
 <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+<script src="/js/alertify.min.js"></script>
 
 @yield('js')
 

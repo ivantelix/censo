@@ -62,9 +62,25 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-6">
+                                </br>
+                                <div class="container">
+                                    <p><strong>Informacion de Ubicacion del Jefe</strong></p>
+                                </div>
                                 <ul>
-                                    <li><strong>Nombre:</strong>{{$leader->name}}</li>
-                                    <li><strong>Apellido:</strong>{{$leader->lastname}}</li>
+                                    <li><strong>Bloque/Edificio: </strong>{{$leader->apartment->building->name}}</li>
+                                    <li><strong>Apartamento: </strong>{{$leader->apartment->name}}</li>
+                                </ul>
+                            </div>
+                            <div class="col-6">
+                            </br>
+                                <div class="container">
+                                    <p><strong>Informacion de Personal del Jefe</strong></p>
+                                </div>
+                                <ul>
+                                    <li><strong>Nombre: </strong>{{$leader->name}}</li>
+                                    <li><strong>Apellido: </strong>{{$leader->lastname}}</li>
+                                    <li><strong>Cedula: </strong>{{$leader->dni}}</li>
+                                    <li><strong>Telefono: </strong>{{$leader->phone}}</li>
                                 </ul>
                             </div>
                         </div>
