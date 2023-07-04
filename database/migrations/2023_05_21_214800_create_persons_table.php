@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->date('birthdate');
             $table->string('email')->unique();
-            $table->string('relationship');
+            $table->string('relationship')->nullable();
             $table->boolean('reside_community');
+            $table->boolean('is_leader');
             $table->integer('leader_family_id')->nullable();
             $table->foreignId('building_id')->constrained('buildings');
             $table->foreignId('apartment_id')->constrained('apartments');

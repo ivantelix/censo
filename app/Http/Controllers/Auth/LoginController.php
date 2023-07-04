@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 
 class LoginController extends Controller
 {
@@ -36,5 +40,68 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+ 
+        $user = User::firstWhere('email', $credentials['email']);
+
+        if (Auth::attempt($credentials) && !$user->is_bloked) {
+            $request->session()->regenerate();
+            
+            
+            $user->try_login = 0;
+            $user->save();
+
+            return redirect()->intended('home');
+        }
+
+        $this->checkTryLogin($user);
+
+
+        if ($user->is_bloked) {
+            
+            $this->logout($request);
+
+            return view('auth.login')->with([
+                'isBloked' => 'Ha realizado mas de 3 intentos. Esta cuenta se encuentra bloqueada. Comuniquese con un administrador',
+            ]);
+        }
+
+        $try_login_available = 3 - $user->try_login;
+
+        return view('auth.login')->with([
+            'credentials' => 'Las credenciales no coinciden, intenta nuevamente. Intentos disponibles ' . $try_login_available,
+        ]);
+        
+    }
+
+    protected function checkTryLogin($user)
+    {
+        $user->try_login = $user->try_login +=1;
+        $user->save();
+
+        if ($user->try_login >= 3) {
+            $user->update(['is_bloked' => 1]);
+            return false;
+        }
+
+        return true;
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+    
+        $request->session()->invalidate();
+    
+        $request->session()->regenerateToken();
+    
+        return redirect('/');
     }
 }

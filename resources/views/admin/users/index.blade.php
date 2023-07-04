@@ -51,27 +51,29 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-11">
+                <div class="col-md-11 col-sm-12">
                     <h3 class="card-title"><strong>Lista de Usuarios</strong> </h3>
                 </div>
-                <div class="col-1">
+                <div class="col-md-1 col-sm-12">
                     <button id="new_users" type="button" class="btn btn-primary" onclick="showModalUser('Nuevo')">Nuevo</button>
                 </div>
             </div>
         </div>
         <div class="card-body">
-            <table id="table_user" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="table_user_info">
-                <thead>
-                    <tr>
-                        <th class="sorting sorting_asc">ID</th>
-                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Nombre</th>
-                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Email</th>
-                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table id="table_user" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="table_user_info">
+                    <thead>
+                        <tr>
+                            <th class="sorting sorting_asc">ID</th>
+                            <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Nombre</th>
+                            <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Email</th>
+                            <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -118,29 +120,28 @@
 <script>
   $(function () {
     $('#table_user').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": true,
-      "responsive": true,
-      ajax: '{{route('users')}}',
-      columns: [
-            {data: 'id', name: 'id'},
-            {data: 'name', name: 'name'},
-            {data: 'email', name: 'email'},
-            {
-                data: 'action', name: 'action', 
-                render: function(data, type, row, meta) {
-                    let btn = `<div class="btn-group"><button class="btn btn-primary" onclick="showModalUser('Actualizar', ${row.id})">Editar</button>`;
-                    btn = btn+`<button class="btn btn-danger" onclick="confirmDelete(${row.id}, 'user')">Eliminar</button></div>`;
-                    return btn;
-                },
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        ajax: '{{route('users')}}',
+        columns: [
+                {data: 'id', name: 'id'},
+                {data: 'name', name: 'name'},
+                {data: 'email', name: 'email'},
+                {
+                    data: 'action', name: 'action', 
+                    render: function(data, type, row, meta) {
+                        let btn = `<div class="btn-group"><button class="btn btn-primary" onclick="showModalUser('Actualizar', ${row.id})">Editar</button>`;
+                        btn = btn+`<button class="btn btn-danger" onclick="confirmDelete(${row.id}, 'user')">Eliminar</button></div>`;
+                        return btn;
+                    },
 
-            },
-        ]
-    });
+                },
+            ]
+        });
   });
   
   $(document).ready(function(){

@@ -79,6 +79,7 @@ function showModalCensoLeader(string, id) {
         });
     }
     else {
+        $('#is_leader').val(1);
         $('#censo_form').attr('action', `/censo`);
         //TODO: Resetear valores de formulario
     }
@@ -117,6 +118,7 @@ function showModalCensoFamily(string) {
         });
     }
     else {
+        $('#is_leader').val(0);
         $('#censo_form').attr('action', `/censo`);
         //TODO: Resetear valores de formulario
     }
@@ -142,7 +144,10 @@ $('#btnSearch').on('click', () => {
         
         if(data.person) {
             $('#showDetail').attr('href', `/search?type=detail&dni=${dni}`);
-            $('#completeCenso').attr('href', `/search?type=censo&dni=${dni}`);
+            
+            if(data.person.is_leader == 1) {
+                $('#completeCenso').attr('href', `/search?type=censo&dni=${dni}`);
+            }
 
             $('#modalTypeSearch').modal('show');
         }

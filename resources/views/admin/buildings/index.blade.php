@@ -51,26 +51,28 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-11">
+                <div class="col-md-11 col-sm-12">
                     <h3 class="card-title"><strong>Lista de Edificios</strong> </h3>
                 </div>
-                <div class="col-1">
+                <div class="col-md-1 col-sm-12">
                     <button id="new_building" type="button" class="btn btn-primary" onclick="showModalBuilding('Nuevo')">Nuevo</button>
                 </div>
             </div>
         </div>
         <div class="card-body">
-            <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
-                <thead>
-                    <tr>
-                        <th class="sorting sorting_asc">ID</th>
-                        <th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Edificio</th>
-                        <th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
+                    <thead>
+                        <tr>
+                            <th class="sorting sorting_asc">ID</th>
+                            <th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Edificio</th>
+                            <th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

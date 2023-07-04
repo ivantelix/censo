@@ -51,28 +51,30 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-11">
+                <div class="col-md-11 col-sm-12">
                     <h3 class="card-title"><strong>Lista de Apartamentos</strong> </h3>
                 </div>
-                <div class="col-1">
+                <div class="col-md-1 col-sm-12">
                     <button id="new_building" type="button" class="btn btn-primary" onclick="showModalApartment('Nuevo')">Nuevo</button>
                 </div>
             </div>
         </div>
         <div class="card-body">
-            <table id="table_apartment" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="table_apartment_info">
-                <thead>
-                    <tr>
-                        <th class="sorting sorting_asc">ID</th>
-                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Edificio</th>
-                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Apartamento</th>
-                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Acciones</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table id="table_apartment" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="table_apartment_info">
+                    <thead>
+                        <tr>
+                            <th class="sorting sorting_asc">ID</th>
+                            <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Edificio</th>
+                            <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Apartamento</th>
+                            <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Acciones</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -125,7 +127,6 @@
       "ordering": true,
       "info": true,
       "autoWidth": true,
-      "responsive": true,
       ajax: '{{route('apartments')}}',
       columns: [
             {data: 'id', name: 'id'},

@@ -62,6 +62,9 @@ class StoreCensoRequest extends FormRequest
             'reside_community' => [
                 'required'
             ],
+            'is_leader' => [
+                'boolean'
+            ]
         ];
         
         if (isset($this->leader_family_id)) {

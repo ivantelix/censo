@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->boolean('is_bloked')->default(0);
+            $table->integer('try_login')->default(0);
         });
     }
 

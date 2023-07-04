@@ -3,6 +3,7 @@
         @csrf
 
         <input type="hidden" id="id">
+        <input type="hidden" id="is_leader" name="is_leader">
         
         @if(isset($leader))
             <input type="hidden" id="leader_family_id" name="leader_family_id" value="{{$leader->id}}">

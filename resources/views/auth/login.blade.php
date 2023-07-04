@@ -13,11 +13,10 @@
         
         var verifyCallback = function(response) {
             captcha = response;
-            console.log(captcha);
         };
 
         var onloadCallback = function() {
-            grecaptcha.render('example3', {
+            grecaptcha.render('grecaptcha-container', {
             'sitekey' : '6Ld-qKoUAAAAAF3qEUN7O_xPqRk5IZqY1KKWfAX0',
             'callback' : verifyCallback,
             'theme' : 'dark'
@@ -38,6 +37,18 @@
     <div class="login-logo">
         <a href="../../index2.html"><b>Censo</b></a>
     </div>
+
+    @if(isset($isBloked))
+        <div class="alert alert-danger" role="alert">
+            {{$isBloked}}
+        </div>
+    @endif
+
+    @if(isset($credentials))
+        <div class="alert alert-warning" role="alert">
+            {{$credentials}}
+        </div>
+    @endif
 
     <div class="card">
         <div class="card-body login-card-body">
@@ -72,7 +83,7 @@
                     </div>
                 </div>
 
-                <div id="example3"></div>
+                <div id="grecaptcha-container"></div>
 
                 </br>
 

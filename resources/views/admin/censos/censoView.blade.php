@@ -43,16 +43,18 @@
 
     <div class="card">
         <div class="card-header">
-            <div class="row">
-                <div class="col-10">
-                    <h3 class="card-title"><strong>Censos Familiar - Jefe de Familia</strong> </h3>
-                </div>
-                <div class="col-2">
-                    @if(isset($leader))
-                        <button disabled id="new_leader" type="button" class="btn btn-primary" onclick="showModalCensoLeader('Nuevo Censo de Lider')">Agregar Jefe</button>
-                    @else
-                        <button id="new_leader" type="button" class="btn btn-primary" onclick="showModalCensoLeader('Nuevo Censo de Lider')">Agregar Jefe</button>
-                    @endif
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-sm-12">
+                        <h3 class="card-title"><strong>Censos Familiar - Jefe de Familia</strong> </h3>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        @if(isset($leader))
+                            <button disabled id="new_leader" type="button" class="btn btn-primary" onclick="showModalCensoLeader('Nuevo Censo de Lider')">Agregar Jefe</button>
+                        @else
+                            <button id="new_leader" type="button" class="btn btn-primary" onclick="showModalCensoLeader('Nuevo Censo de Lider')">Agregar Jefe</button>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,7 +63,7 @@
                 <div class="card">
                     <div class="container">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-md-6 col-sm-12">
                                 </br>
                                 <div class="container">
                                     <p><strong>Informacion de Ubicacion del Jefe</strong></p>
@@ -71,7 +73,7 @@
                                     <li><strong>Apartamento: </strong>{{$leader->apartment->name}}</li>
                                 </ul>
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6 col-sm-12">
                             </br>
                                 <div class="container">
                                     <p><strong>Informacion de Personal del Jefe</strong></p>
@@ -105,29 +107,31 @@
                                     <!--TODO: Evaluar esta logica para refactorizar-->
                                     <input type="hidden" id="leader_id" name="leader_id" value="{{$leader->id}}">
 
-                                    <button id="new_family" type="button" class="btn btn-primary" onclick="showModalCensoFamily('Nuevo Censo de Integrante de Familia')">Agregar Jefe</button>
+                                    <button id="new_family" type="button" class="btn btn-primary" onclick="showModalCensoFamily('Nuevo Censo de Integrante de Familia')">Agregar Integrantes</button>
                                 @else
-                                    <button disabled id="new_family" type="button" class="btn btn-primary" onclick="showModalCensoFamily('Nuevo Censo de Integrante de Familia')">Agregar Carga Familiar</button>
+                                    <button disabled id="new_family" type="button" class="btn btn-primary" onclick="showModalCensoFamily('Nuevo Censo de Integrante de Familia')">Agregar Integrantes</button>
                                 @endif
 
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="table_family" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="table_apartment_info">
-                            <thead>
-                                <tr>
-                                    <th class="sorting sorting_asc">ID</th>
-                                    <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Nombre</th>
-                                    <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Apellido</th>
-                                    <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">dni</th>
-                                    <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Acciones</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table id="table_family" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="table_apartment_info">
+                                <thead>
+                                    <tr>
+                                        <th class="sorting sorting_asc">ID</th>
+                                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Nombre</th>
+                                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Apellido</th>
+                                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">dni</th>
+                                        <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Acciones</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -169,7 +173,6 @@
           "ordering": true,
           "info": true,
           "autoWidth": true,
-          "responsive": true,
           ajax: `/censos/getFamily/${leader_id}`,
           columns: [
                 {data: 'id', name: 'id'},
