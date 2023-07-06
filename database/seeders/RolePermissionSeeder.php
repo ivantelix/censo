@@ -16,6 +16,6 @@ class RolePermissionSeeder extends Seeder
             [
                 'name' => 'list'
             ]
-        ]
+        ];
     }
 }

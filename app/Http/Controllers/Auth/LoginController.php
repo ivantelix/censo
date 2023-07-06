@@ -51,38 +51,44 @@ class LoginController extends Controller
  
         $user = User::firstWhere('email', $credentials['email']);
 
-        if (Auth::attempt($credentials) && !$user->is_bloked) {
-            $request->session()->regenerate();
-            
-            
-            $user->try_login = 0;
-            $user->save();
-
-            return redirect()->intended('home');
-        }
-
-        $this->checkTryLogin($user);
-
-
-        if ($user->is_bloked) {
-            
-            $this->logout($request);
-
+        if($user) {
+            if (Auth::attempt($credentials) && !$user->is_bloked) {
+                $request->session()->regenerate();
+                
+                
+                $user->try_login = 0;
+                $user->save();
+    
+                return redirect()->intended('home');
+            }
+    
+            $this->checkTryLogin($user);
+    
+    
+            if ($user->is_bloked) {
+                
+                $this->logout($request);
+    
+                return view('auth.login')->with([
+                    'isBloked' => 'Ha realizado mas de 3 intentos. Esta cuenta se encuentra bloqueada. Comuniquese con un administrador',
+                ]);
+            }
+    
+            $try_login_available = 3 - $user->try_login;
+    
             return view('auth.login')->with([
-                'isBloked' => 'Ha realizado mas de 3 intentos. Esta cuenta se encuentra bloqueada. Comuniquese con un administrador',
+                'credentials' => 'Las credenciales no coinciden, intenta nuevamente. Intentos disponibles ' . $try_login_available,
             ]);
         }
 
-        $try_login_available = 3 - $user->try_login;
-
         return view('auth.login')->with([
-            'credentials' => 'Las credenciales no coinciden, intenta nuevamente. Intentos disponibles ' . $try_login_available,
-        ]);
-        
+            'account_exist' => 'No existe una cuenta con esta direccion de correo',
+        ]);        
     }
 
     protected function checkTryLogin($user)
     {
+        dd($user);
         $user->try_login = $user->try_login +=1;
         $user->save();
 

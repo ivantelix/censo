@@ -15,12 +15,20 @@ class UsersSeeder extends Seeder
     public function run(): void
     {
         $user = [
-            'name' => 'qwe',
-            'email' => 'qwe@gmail.com',
-            'password' => bcrypt('qweqwe'),
-            'role_id' => Role::find(1)->id
+            [
+                'name' => 'admin',
+                'email' => 'admin@gmail.com',
+                'password' => bcrypt('admin123'),
+                'role_id' => Role::find(1)->id
+            ],
+            [
+                'name' => 'user',
+                'email' => 'user@gmail.com',
+                'password' => bcrypt('user123'),
+                'role_id' => Role::find(2)->id
+            ],
         ];
 
-        User::create($user);
+        User::insert($user);
     }
 }

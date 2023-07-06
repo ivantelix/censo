@@ -50,6 +50,12 @@
         </div>
     @endif
 
+    @if(isset($account_exist))
+        <div class="alert alert-warning" role="alert">
+            {{$account_exist}}
+        </div>
+    @endif
+
     <div class="card">
         <div class="card-body login-card-body">
             <p class="login-box-msg">Iniciar Sesion</p>

@@ -20,6 +20,10 @@ class RoleSeeder extends Seeder
                 'name' => 'Administrador',
                 'guard_name' => 'web'
             ],
+            [
+                'name' => 'Usuario',
+                'guard_name' => 'web'
+            ],
         ];
 
         Role::insert($roles);

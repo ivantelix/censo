@@ -14,6 +14,8 @@ class UsersController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorize('index', auth()->user());
+        
          if ($request->ajax()) {
 
             $data = User::select('*');
@@ -30,12 +32,16 @@ class UsersController extends Controller
 
     public function search(Request $request, $id)
     {
+        $this->authorize('search', auth()->user());
+
         $user = User::find($id);
         return response()->json(['user' => $user]);
     }
 
     public function store(UserRequest $request)
     {
+
+        $this->authorize('store', auth()->user());
 
         $data = $request->validated();
 
@@ -47,6 +53,8 @@ class UsersController extends Controller
 
     public function update(UserRequest $request, User $user)
     {
+        $this->authorize('update', auth()->user());
+
         $data = $request->validated();
 
         if ($request->has('password')) {
@@ -60,6 +68,8 @@ class UsersController extends Controller
 
     public function delete(User $user)
     {
+        $this->authorize('delete', auth()->user());
+
         $user->delete();
         return redirect('users')->with('messages', 'Usuario eliminado con exito!');
     }
