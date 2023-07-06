@@ -15,21 +15,21 @@ class UserPolicy
 
     public function search($user): bool
     {
-        $user->role_id == 1 ? true : false;
+        return $user->role_id == 1 ? true : false;
     }
 
     public function store($user): bool
     {
-        $user->role_id == 1 ? true : false;
+        return $user->role_id == 1 ? true : false;
     }
 
     public function update($user): bool
     {
-        $user->role_id == 1 ? true : false;
+        return  $user->role_id == 1 ? true : false;
     }
 
     public function delete($user): bool
     {
-        $user->role_id == 1 ? true : false;
+        return  $user->role_id == 1 ? true : false;
     }
 }

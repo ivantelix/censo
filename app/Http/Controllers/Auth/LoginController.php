@@ -88,7 +88,6 @@ class LoginController extends Controller
 
     protected function checkTryLogin($user)
     {
-        dd($user);
         $user->try_login = $user->try_login +=1;
         $user->save();
 
