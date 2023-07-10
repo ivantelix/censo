@@ -42,7 +42,9 @@ class UserRequest extends FormRequest
                 ],
                 'password' => [
                     'required', 
-                    'string'
+                    'string',
+                    'string',
+                    'min:8'
                 ]
             ];
         }
@@ -63,7 +65,9 @@ class UserRequest extends FormRequest
                 ],
                 'password' => [
                     'required', 
-                    'string'
+                    'string',
+                    'alpha_num:ascii',
+                    'min:8'
                 ]
             ];
         }
