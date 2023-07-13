@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\SecurityQuestion;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 
 class UsersController extends Controller
 {
@@ -27,7 +30,7 @@ class UsersController extends Controller
         }
 
         $roles = Role::all();
-        return view('admin.users.index')->with(['roles' => $roles]);;
+        return view('admin.users.index')->with(['roles' => $roles]);
     }
 
     public function search(Request $request, $id)
@@ -46,7 +49,14 @@ class UsersController extends Controller
         $data = $request->validated();
 
         $data['password'] = Hash::make($data['password']);
-        User::create($data);
+
+        $user = User::create($data);
+
+        SecurityQuestion::create([
+            'question' => $data['question'],
+            'answer' => $data['answer'],
+            'user_id' => $user->id
+        ]);
 
         return redirect('users')->with('messages', 'Usuario registrado con exito!');
     }
@@ -57,8 +67,11 @@ class UsersController extends Controller
 
         $data = $request->validated();
 
-        if ($request->has('password')) {
+        if ($request->has('password') && !is_null($request->password)) {
             $data['password'] = Hash::make($data['password']);
+        }
+        else {
+            unset($data['password']);
         }
 
         $user->update($data);
@@ -72,5 +85,61 @@ class UsersController extends Controller
 
         $user->delete();
         return redirect('users')->with('messages', 'Usuario eliminado con exito!');
+    }
+
+    public function recoverPassword(Request $request)
+    {
+        return view('auth.passwords.reset');
+    }
+
+    public function sendRecoverPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|exists:users,email',
+        ]);
+        
+        if ($validator->fails()) {
+
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::with('security_questions')->where('email', $request->email)->first();
+
+        return view('auth.passwords.reset_step1')->with(['user' => $user]);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required',
+            'answer' => 'required|string',
+            'password' => [
+                'nullable', 
+                'string',
+                Password::min(8)
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised()
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::with('security_questions')->where('email', $request->email)->first();
+        
+        if ( $user->security_questions->answer == $request->answer) {
+            
+            $user->update([
+                'password' => Hash::make($request->password)
+            ]);
+
+            return view('auth.login')->with(['password_succesfully' => 'Contrasena actualizada cone exito']);
+
+        }
+
     }
 }

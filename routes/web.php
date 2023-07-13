@@ -43,3 +43,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/user/{user}', [UsersController::class, 'update'])->name('update_user');
     Route::get('/user/delete/{user}', [UsersController::class, 'delete'])->name('delete_user');
 });
+
+Route::get('recover-password', [UsersController::class, 'recoverPassword'])->name('recover_password');
+Route::post('recover-password', [UsersController::class, 'sendRecoverPassword'])->name('send_recover_password');
+Route::post('confirm-reset-password', [UsersController::class, 'resetPassword'])->name('confirm_reset_password');
