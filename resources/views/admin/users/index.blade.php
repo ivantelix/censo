@@ -67,6 +67,7 @@
                             <th class="sorting sorting_asc">ID</th>
                             <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Nombre</th>
                             <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Email</th>
+                            <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Estatus</th>
                             <th class="sorting sorting_asc" tabindex="0" rowspan="1" colspan="1">Acciones</th>
                         </tr>
                     </thead>
@@ -132,10 +133,26 @@
                 {data: 'name', name: 'name'},
                 {data: 'email', name: 'email'},
                 {
+                    data: 'status', name: 'status', 
+                    render: function(data, type, row, meta) {
+                        if (row.is_bloked) {
+                            return "Bloqueado";
+                        }
+
+                        return "Activo";
+                    },
+
+                },
+                {
                     data: 'action', name: 'action', 
                     render: function(data, type, row, meta) {
                         let btn = `<div class="btn-group"><button class="btn btn-primary" onclick="showModalUser('Actualizar', ${row.id})">Editar</button>`;
-                        btn = btn+`<button class="btn btn-danger" onclick="confirmDelete(${row.id}, 'user')">Eliminar</button></div>`;
+                        btn = btn+`<button class="btn btn-danger" onclick="confirmDelete(${row.id}, 'user')">Eliminar</button>`;
+                        
+                        if (row.is_bloked) {
+                            btn = btn+`<button class="btn btn-success" onclick="unlockUser(${row.id})">Desbloquear</button></div>`;
+                        }
+                        
                         return btn;
                     },
 

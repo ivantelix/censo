@@ -42,4 +42,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/search/{id}', [UsersController::class, 'search'])->name('search_user');
     Route::post('/user/{user}', [UsersController::class, 'update'])->name('update_user');
     Route::get('/user/delete/{user}', [UsersController::class, 'delete'])->name('delete_user');
+    Route::get('/user/unlock/{user}', [UsersController::class, 'unlock'])->name('unlock_user');
 });

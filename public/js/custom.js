@@ -187,3 +187,17 @@ function showModalUser(string, id) {
 
     $('#modalUser').modal('show');
 }
+
+function unlockUser(id) {
+    $.ajax({
+        method: "GET",
+        url: `/user/unlock/${id}`,
+    })
+    .done(function( data ) {
+        $('#table_user').DataTable().ajax.reload();
+
+        alertify.set('notifier','position', 'top-center');
+        alertify.warning('El usuario ha sido desbloqueado.!');
+        return false;
+    });
+}

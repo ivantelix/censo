@@ -73,4 +73,10 @@ class UsersController extends Controller
         $user->delete();
         return redirect('users')->with('messages', 'Usuario eliminado con exito!');
     }
+
+    public function unlock(User $user)
+    {
+        $user->update(['is_bloked' => 0]);
+        return response()->json([], 200);
+    }
 }
