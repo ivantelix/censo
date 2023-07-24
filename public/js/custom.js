@@ -48,23 +48,23 @@ function showModalApartment(string, id) {
     $('#modalApartment').modal('show');
 }
 
-function confirmDelete(id, module, table_name=null) {
+function confirmDelete(id, module, table_name="") {
     $('#modalDelete').modal('show');
     $('#btnDelete').attr('onclick', `deleted(${id}, '${module}', '${table_name}')`);
 }
 
-function deleted(id, module, table_name=null) {
+function deleted(id, module, table_name) {
     $.ajax({
         method: "GET",
         url: `/${module}/delete/${id}`,
     })
     .done(function( data ) {
         $('#modalDelete').modal('hide');
-        if(table_name) {
+
+        if(table_name != "") {
             $(`#${table_name}`).DataTable().ajax.reload();
         }
         else {
-
             $(`#table_${module}`).DataTable().ajax.reload();
         }
         alertify.set('notifier','position', 'top-center');
