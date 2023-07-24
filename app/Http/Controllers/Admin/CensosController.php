@@ -25,9 +25,6 @@ class CensosController extends Controller
         $person = Person::create($data);
         $buildings = Building::all();
 
-
-        dd($data);
-
         if (isset($request->leader_family_id)) {
             $leader = Person::find($request->leader_family_id);
             return view('admin.censos.censoView')->with(['leader' => $leader, 'buildings' => $buildings]);
