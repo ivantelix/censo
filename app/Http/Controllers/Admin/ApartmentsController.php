@@ -9,6 +9,7 @@ use Yajra\DataTables\DataTables;
 
 use App\Models\Building;
 use App\Models\Apartment;
+use App\Models\Person;
 use App\Http\Requests\ApartmentRequest;
 use App\Http\Resources\ApartmentResource;
 
@@ -64,5 +65,16 @@ class ApartmentsController extends Controller
     {
         $Apartment->delete();
         return redirect('apartments')->with('messages', 'Apartamento eliminado con exito!');
+    }
+
+    public function listfamily($appartment_id)
+    {
+        $buildings = Building::all();
+        $person = Person::with('apartment.building')->where([
+                'apartment_id' => $appartment_id,
+                'is_leader' => 1
+            ])->first();
+
+        return view('admin.censos.censoView')->with(['leader' => $person, 'buildings' => $buildings]);
     }
 }

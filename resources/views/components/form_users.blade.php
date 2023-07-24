@@ -40,6 +40,26 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Pregunta de Seguridad</label>
+                    <select class="form-control" id="question" name="question">
+                        <option value="">Selecciona una pregunta...</option>/
+                        <option value="Nombre de La Mama">Nombre de la Mama</option>
+                        <option value="Nombre de tu Mascota">Nombre de tu Mascota</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label for="exampleInputEmail1">Respuesta de Pregunta de Seguridad</label>
+                <input type="answer" class="form-control" id="answer" name="answer" placeholder="Ingresa la respuesta de seguridad" value="{{old('answer')}}">
+            </div>
+        </div>
+
         </br>
 
         <div class="row">

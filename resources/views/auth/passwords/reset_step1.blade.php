@@ -21,15 +21,11 @@
         <a href="/home"><b>Resetear Contrasena</b></a>
     </div>
 
-    @if($errors->any())
+    @isset($bad_answer)
         <div class="alert alert-danger" role="alert">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </ul>
+            {{$bad_answer}}
         </div>
-    @endif
+    @endisset
 
     <div class="container">
         <div class="row">
@@ -37,18 +33,43 @@
 
            <div class="card">
                 <div class="card-body login-card-body">
-                    <form method="POST" action="{{ route('send_recover_password') }}">
+                    <form method="POST" action="{{ route('confirm_reset_password') }}">
 
                         @csrf
+                        
+                        <input class="form-control" type="hidden" value="{{$user->email}}" name="email">
 
                         <div class="input-group mb-3">
-                            <input id="email" type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <input class="form-control" type="text" placeholder="{{$user->security_questions->question}}" readonly>
                             <div class="input-group-append">
                                 <div class="input-group-text">
-                                    <span class="fas fa-envelope"></span>
+                                    <span class="fas fa-info"></span>
                                 </div>
                             </div>
-                            @error('email')
+                        </div>
+                        
+                        <div class="input-group mb-3">
+                            <input id="answer" type="text" placeholder="Ingrese la Respuesta" class="form-control @error('answer') is-invalid @enderror" name="answer" value="{{ old('answer') }}" required autocomplete="answer" autofocus>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-keyboard"></span>
+                                </div>
+                            </div>
+                            @error('answer')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <input id="password" type="password" placeholder="Ingrese el Nuevo Password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required autocomplete="password" autofocus>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fa fa-key"></span>
+                                </div>
+                            </div>
+                            @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -57,7 +78,7 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block">Resetear Password</button>
+                                <button type="submit" class="btn btn-primary btn-block">Confirmar Resetear Password</button>
                             </div>
 
                         </div>

@@ -28,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/apartment', [ApartmentsController::class, 'store'])->name('create_apartment');
     Route::post('/apartment/{apartment}', [ApartmentsController::class, 'update'])->name('update_apartment');
     Route::get('/apartment/delete/{apartment}', [ApartmentsController::class, 'delete'])->name('delete_apartment');
+    Route::get('/appartments/list-family/{appartment_id}', [ApartmentsController::class, 'listfamily'])->name('list_family_apartment');
 
     //Rutas de censo
     Route::get('/censos', [CensosController::class, 'show'])->name('censos');
@@ -35,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/censos/getFamily/{leader_id?}', [CensosController::class, 'getFamilyLeader'])->name('getFamilyLeader');
     Route::get('/search', [CensosController::class, 'search'])->name('search');
     Route::get('/generate/{dni}', [CensosController::class, 'generate'])->name('generate');
+    Route::get('/censo/delete/{person_id}', [CensosController::class, 'deletePerson'])->name('delete_person');
 
     //Rutas de usuarios
     Route::get('/users', [UsersController::class, 'index'])->name('users');
@@ -44,3 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/delete/{user}', [UsersController::class, 'delete'])->name('delete_user');
     Route::get('/user/unlock/{user}', [UsersController::class, 'unlock'])->name('unlock_user');
 });
+
+Route::get('recover-password', [UsersController::class, 'recoverPassword'])->name('recover_password');
+Route::post('recover-password', [UsersController::class, 'sendRecoverPassword'])->name('send_recover_password');
+Route::post('confirm-reset-password', [UsersController::class, 'resetPassword'])->name('confirm_reset_password');

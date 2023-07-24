@@ -25,6 +25,9 @@ class CensosController extends Controller
         $person = Person::create($data);
         $buildings = Building::all();
 
+
+        dd($data);
+
         if (isset($request->leader_family_id)) {
             $leader = Person::find($request->leader_family_id);
             return view('admin.censos.censoView')->with(['leader' => $leader, 'buildings' => $buildings]);
@@ -78,5 +81,12 @@ class CensosController extends Controller
         $pdf = \PDF::loadView('admin.pdf.constancy', $data);
         $pdf->setPaper('a4');
         return $pdf->download('ejemplo.pdf');
+    }
+
+    public function deletePerson($person_id)
+    {
+        $person = Person::find($person_id);
+        $person->delete();
+        return response()->json([], 200);
     }
 }

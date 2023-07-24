@@ -35,7 +35,7 @@
 <body class="login-page" style="min-height: 496.781px;">
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>Censo</b></a>
+        <a href="/home"><b>Censo</b></a>
     </div>
 
     @if(isset($isBloked))
@@ -53,6 +53,12 @@
     @if(isset($account_exist))
         <div class="alert alert-warning" role="alert">
             {{$account_exist}}
+        </div>
+    @endif
+
+    @if(isset($password_succesfully))
+        <div class="alert alert-success" role="alert">
+            {{$password_succesfully}}
         </div>
     @endif
 
@@ -103,6 +109,9 @@
 
             <p class="mb-1">
                 <a href="{{ route('register') }}">Registrar nuevo usuario</a>
+            </p>
+            <p class="mb-1">
+                <a href="{{ route('recover_password') }}">Olvide la contrasenia</a>
             </p>
         </div>
 

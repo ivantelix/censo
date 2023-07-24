@@ -48,19 +48,25 @@ function showModalApartment(string, id) {
     $('#modalApartment').modal('show');
 }
 
-function confirmDelete(id, module) {
+function confirmDelete(id, module, table_name=null) {
     $('#modalDelete').modal('show');
-    $('#btnDelete').attr('onclick', `deleted(${id}, '${module}')`);
+    $('#btnDelete').attr('onclick', `deleted(${id}, '${module}', '${table_name}')`);
 }
 
-function deleted(id, module) {
+function deleted(id, module, table_name=null) {
     $.ajax({
         method: "GET",
         url: `/${module}/delete/${id}`,
     })
     .done(function( data ) {
         $('#modalDelete').modal('hide');
-        $(`#table_${module}`).DataTable().ajax.reload();
+        if(table_name) {
+            $(`#${table_name}`).DataTable().ajax.reload();
+        }
+        else {
+
+            $(`#table_${module}`).DataTable().ajax.reload();
+        }
         alertify.set('notifier','position', 'top-center');
         alertify.warning('registro eliminado con exito!');
     });

@@ -158,6 +158,27 @@
             </div>
         </div>
     </div>
+
+    <!--Modal Delete-->
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" `role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="color:white; background-color: red;">
+                    <h5 class="modal-title" id="modalDeleteLabel">Confirmar Eliminar Registro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col offset-4">
+                            <button class="btn btn-sm btn-danger" id="btnDelete">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('js')
@@ -182,8 +203,9 @@
                 {
                     data: 'action', name: 'action', 
                     render: function(data, type, row, meta) {
-                        let checkbox = `<button class="btn btn-primary" onclick="showModalBuilding('Actualizar', ${row.id})">Editar</button>`;
-                        return checkbox;
+                        let btn = `<div class="btn-group"><button class="btn btn-primary" onclick="showModalBuilding('Actualizar', ${row.id})">Editar</button>`;
+                            btn = btn+`<button class="btn btn-danger" onclick="confirmDelete(${row.id}, 'censo', 'table_family')">Eliminar</button></div>`;
+                        return btn;
                     },
 
                 },

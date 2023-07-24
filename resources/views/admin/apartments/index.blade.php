@@ -142,8 +142,10 @@
             {
                 data: 'action', name: 'action', 
                 render: function(data, type, row, meta) {
-                    let btn = `<div class="btn-group"><button class="btn btn-primary" onclick="showModalApartment('Actualizar', ${row.id})">Editar</button>`;
+                    let btn = `<div class="btn-group"><a href="/appartments/list-family/${row.id}" class="btn btn-info">Ver Familia</a>`;
+                    btn = btn+`<button class="btn btn-primary" onclick="showModalApartment('Actualizar', ${row.id})">Editar</button>`;
                     btn = btn+`<button class="btn btn-danger" onclick="confirmDelete(${row.id}, 'apartment')">Eliminar</button></div>`;
+
                     return btn;
                 },
 

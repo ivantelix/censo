@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Validation\Rules\Password;
 
 class UserRequest extends FormRequest
 {
@@ -41,10 +42,17 @@ class UserRequest extends FormRequest
                     Rule::unique('users')->where(fn (Builder $query) => $query->where('id', '!=', $user->id)),
                 ],
                 'password' => [
-                    'required', 
+                    'nullable', 
                     'string',
-                    'string',
-                    'min:8'
+                    $this->validateUpdatePassword($this->password)
+                ],
+                'question' => [
+                    'nullable',
+                    'string'
+                ],
+                'answer' => [
+                    'nullable',
+                    'string'
                 ]
             ];
         }
@@ -66,12 +74,35 @@ class UserRequest extends FormRequest
                 'password' => [
                     'required', 
                     'string',
-                    'alpha_num:ascii',
-                    'min:8'
+                    Password::min(8)
+                        ->letters()
+                        ->mixedCase()
+                        ->numbers()
+                        ->symbols()
+                        ->uncompromised()
+                ],
+                'question' => [
+                    'required',
+                    'string'
+                ],
+                'answer' => [
+                    'required',
+                    'string'
                 ]
             ];
         }
 
         return $rules;
+    }
+
+    protected function validateUpdatePassword($password) {
+        if($password) {
+            return Password::min(8)
+            ->letters()
+            ->mixedCase()
+            ->numbers()
+            ->symbols()
+            ->uncompromised();
+        }
     }
 }

@@ -10,36 +10,48 @@
         @endif
 
 
-        <div class="row">
-            <div class="col">
+        @if(isset($leader))
+            <div class="row">
+                <div class="col">
+                    <input type="hidden" readonly class="form-control" id="building" name="building_id" value="{{$leader->apartment->building->id}}">
+                </div>
+
+                <div class="col">
+                    <input type="hidden" readonly class="form-control" id="apartment" name="apartment_id" value="{{$leader->apartment->id}}">
+                </div>
+            </div>
+        @else
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Edificio</label>
+                        <select class="form-control" id="building" name="building_id">
+                            <option value="">Selecciona edificio...</option>/
+                            @foreach($buildings as $building)
+                                <option value="{{ $building->id }}" @selected(old('building_id') == $building->id)>
+                                    {{$building->name}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                
+                </div>
+
+                <div class="col">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Edificio</label>
-                    <select class="form-control" id="building" name="building_id">
-                        <option value="">Selecciona edificio...</option>/
-                        @foreach($buildings as $building)
-                            <option value="{{ $building->id }}" @selected(old('building_id') == $building->id)>
-                                {{$building->name}}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            
-            </div>
-
-            <div class="col">
-            <div class="form-group">
-                    <label for="exampleInputEmail1">Apartamento</label>
-                    <select class="form-control" id="apartment" name="apartment_id">
-                        <option value="">Selecciona apartamento...</option>/
-                    </select>
+                        <label for="exampleInputEmail1">Apartamento</label>
+                        <select class="form-control" id="apartment" name="apartment_id">
+                            <option value="">Selecciona apartamento...</option>/
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
 
         <div class="row">
             <div class="col">
-            <label for="exampleInputEmail1">Nombres</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Ingresa los nombres" value="{{old('name')}}">
+                <label for="exampleInputEmail1">Nombres</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Ingresa los nombres" value="{{old('name')}}">
             </div>
 
             <div class="col">
